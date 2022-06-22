@@ -1,18 +1,20 @@
 from tkinter import *
+import tkinter as tk
+from tkinter import ttk 
 
 #quit subroutine
 def quit():
-    main_window.destroy()
+     main_window.destroy()
 
 #print details of all the camps
 def print_customer_details ():
     global j_names, total_entries, name_count
     name_count = 0
-    Label(main_window, font='bold',text="Row", bg="sky blue").grid(column=0,row=7)
-    Label(main_window, font='bold',text="Full name",bg ="sky blue").grid(column=1,row=7)
-    Label(main_window, font='bold',text="Receipt number",bg ="sky blue").grid(column=2,row=7)
-    Label(main_window, font='bold',text="Item hire",bg ="sky blue").grid(column=3,row=7)
-    Label(main_window, font='bold',text="Quantity",bg ="sky blue").grid(column=4,row=7)
+    Label(main_window, font="times 15 bold",text="Row", bg="sky blue").grid(column=0,row=7)
+    Label(main_window, font='times 15 bold',text="Full name",bg ="sky blue").grid(column=1,row=7)
+    Label(main_window, font='times 15 bold',text="Receipt number",bg ="sky blue").grid(column=2,row=7)
+    Label(main_window, font='times 15 bold',text="Item hire",bg ="sky blue").grid(column=3,row=7)
+    Label(main_window, font='times 15 bold',text="Quantity",bg ="sky blue").grid(column=4,row=7)
 
     while name_count < total_entries :
         Label(main_window, text=name_count,bg="sky blue").grid(column=0,row=name_count+8) 
@@ -60,7 +62,7 @@ def check_input():
         Label(main_window, fg="red", text="Required",bg ="sky blue").grid(column=2, row=2,sticky =W)
         input_check = 1
     if len (entry_item.get()) == 0:
-        Label(main_window, fg="red", text="Required",bg ="sky blue").grid(column=6, row=2, sticky=W)
+        Label(main_window, fg="red", text="Required",bg ="sky blue").grid(column=6, row=2, sticky =W)
         input_check = 1
 
     if (entry_receipt.get().isdigit()):
@@ -73,10 +75,10 @@ def check_input():
 
     if (entry_quantity.get().isdigit()):
         if int(entry_quantity.get()) < 1 or int(entry_quantity.get()) > 500:
-            Label(main_window, fg="red", text="Quantity only 1- 500", bg="sky blue") .grid(column=6, row=3)
+            Label(main_window, fg="red", text="Quantity only 1- 500", bg="sky blue") .grid(column=6, row=3, sticky =W)
             input_check = 1
     else:
-        Label(main_window, fg="red", text="Quantity only 1-500",bg="sky blue") .grid(column=6, row=3)
+        Label(main_window, fg="red", text="Quantity only 1-500",bg="sky blue") .grid(column=6, row=3, sticky = W)
         input_check = 1
     
             
@@ -87,6 +89,7 @@ def check_input():
 #create the buttons and labels
 def setup_buttons():
     global customer_details, entry_name,entry_receipt,entry_item,entry_quantity, total_entries, delete_item
+    x = tk.StringVar()
     main_window.configure(bg= "sky blue")
     main_window.title("Hire Store")
     Label(main_window, text=" Hire Store", font="Times 30 italic bold",bg="Yellow").grid(row=0, column=3, sticky =E+W)
@@ -102,12 +105,17 @@ def setup_buttons():
     Label(main_window, text="Receipt number",bg ="sky blue",font="times 15 italic bold") .grid(column=0,row=3)
     entry_receipt = Entry(main_window)
     entry_receipt.grid(column=1,row=3)
-    Label(main_window, text="Item hire",bg ="sky blue",font="times 15 italic bold") .grid(column=4,row=2)
-    entry_item = Entry(main_window)
-    entry_item.grid(column=5,row=2)
+    
+    Label(main_window, text="Item hire",bg ="sky blue",font="times 15 italic bold") .grid(column=4,row=2)                                                                          
+    Label(main_window, text ="Type Items Or Select Items you want",font = "Times 10 bold", fg="red", bg="sky blue").grid(column = 5, row=1, sticky = S )
+    entry_item = ttk.Combobox(main_window, width = 19, textvariable = x)
+    entry_item ["values"] = ("Chair", "Table","Shoes","Pen","Ruler","Laptop","Ipad","Clothing","Buliding tools","Bike", "Moto Bike",
+                             "Car", "Toy","Cups","Knife","Plate","Bowl")
+    entry_item.grid(column =5, row =2,sticky = W )
+    entry_item.current()
     Label(main_window, text="Quantity",bg ="sky blue",font="times 15 italic bold") .grid(column=4,row=3)
     entry_quantity = Entry(main_window)
-    entry_quantity.grid(column=5,row=3)
+    entry_quantity.grid(column=5,row=3,sticky = W)
     Label(main_window, text="Row #",bg ="sky blue",font="times 15 italic bold") .grid(column=0,row=6)
     delete_item = Entry(main_window)
     delete_item .grid(column=1,row=6)
